@@ -10,6 +10,8 @@ public class ProductEntityImpl implements ProductEntity {
     private Double price;
     private String imgUrl;
 
+    public ProductEntityImpl() {
+    }
 
     public ProductEntityImpl(Long id, String name, String description, Double price, String imgUrl) {
         this.id = id;

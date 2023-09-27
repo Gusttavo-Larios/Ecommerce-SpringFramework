@@ -5,4 +5,8 @@ import com.tads4.tads4.generics.pagination.PageGenericImpl;
 
 public interface ProductRepository  {
     public PageGenericImpl<ProductEntity> listProducts(Integer page);
+
+    public ProductEntity showProduct(Long id);
+
+     public ProductEntity insertProduct(ProductEntity product);
 }

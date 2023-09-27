@@ -48,4 +48,37 @@ public class ProductRepositoryImpl implements ProductRepository {
 
         return new PageGenericImpl<>(items, result.getNumber(), result.getTotalPages());
     }
+
+    @Override
+    public ProductEntity showProduct(Long id) {
+
+        Product product = this.jpaProductRepository.findById(id).get();
+
+        return new ProductEntityImpl(
+                product.getId(),
+                product.getName(),
+                product.getDescription(),
+                product.getPrice(),
+                product.getImgUrl()
+        );
+    }
+
+    public ProductEntity insertProduct(ProductEntity product) {
+        Product productModel = new Product();
+
+        productModel.setName(product.getName());
+        productModel.setDescription(product.getDescription());
+        productModel.setPrice(product.getPrice());
+        productModel.setImgUrl(product.getImgUrl());
+
+        productModel = this.jpaProductRepository.save(productModel);
+
+        return new ProductEntityImpl(
+                productModel.getId(),
+                productModel.getName(),
+                productModel.getDescription(),
+                productModel.getPrice(),
+                productModel.getImgUrl()
+        );
+    }
 }
