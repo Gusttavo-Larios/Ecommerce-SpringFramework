@@ -17,6 +17,7 @@ import com.tads4.tads4.generics.pagination.PageGenericImpl;
 
 //Aula
 import com.tads4.tads4.entities.Product;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Repository
@@ -80,5 +81,30 @@ public class ProductRepositoryImpl implements ProductRepository {
                 productModel.getPrice(),
                 productModel.getImgUrl()
         );
+    }
+
+    @Override
+    @Transactional
+    public ProductEntity updateProduct(Long id, ProductEntity product) {
+        Product productModel = this.jpaProductRepository.getReferenceById(id);
+
+        productModel.setName(product.getName());
+        productModel.setDescription(product.getDescription());
+        productModel.setPrice(product.getPrice());
+        productModel.setImgUrl(product.getImgUrl());
+
+        productModel = this.jpaProductRepository.save(productModel);
+
+        return new ProductEntityImpl(
+                productModel.getId(),
+                productModel.getName(),
+                productModel.getDescription(),
+                productModel.getPrice(),
+                productModel.getImgUrl()
+        );
+    }
+
+    public void deleteProduct(Long id) {
+        this.jpaProductRepository.deleteById(id);
     }
 }
